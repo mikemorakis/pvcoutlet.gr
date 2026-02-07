@@ -27,6 +27,26 @@ body {
   max-width: 100%;
 }
 
+/* Skip link: hidden until focused (a11y + SEO) */
+.skip-link {
+  position: absolute;
+  top: -3rem;
+  left: 0.5rem;
+  z-index: 9999;
+  padding: 0.5rem 1rem;
+  background: #262364;
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 0 0 4px 0;
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 0;
+  outline: 2px solid #00afed;
+  outline-offset: 2px;
+}
+
 /* ==========================================================================
    SCROLLBAR STYLING
    ========================================================================== */
@@ -480,6 +500,24 @@ div.pvcdesc h3 {
 
 .subfooter img {
   width: 200px;
+}
+
+.subfooter .internal-links {
+  margin-top: 0.75rem;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  max-width: 56rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.subfooter .internal-links a {
+  color: #00afed;
+  text-decoration: none;
+}
+
+.subfooter .internal-links a:hover {
+  text-decoration: underline;
 }
 
 p.buuuu {

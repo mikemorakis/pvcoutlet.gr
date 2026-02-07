@@ -7,6 +7,7 @@
   <title>{{ title | default(site.name) }}</title>
   <meta name="description" content="{{ description }}">
   <link rel="canonical" href="{{ canonical | default(site.url + page.url) }}">
+  <meta name="robots" content="index, follow">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="{{ site.name }}">
   <meta property="og:url" content="{{ canonical | default(site.url + page.url) }}">
@@ -14,7 +15,19 @@
   <meta property="og:description" content="{{ ogDesc | default(description) }}">
   <meta property="og:image" content="{{ site.ogImage }}">
   <meta property="og:image:url" content="{{ site.ogImage }}">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="{{ site.name }} – κουφώματα PVC">
+  <meta property="og:locale" content="el_GR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{{ ogTitle | default(title) }}">
+  <meta name="twitter:description" content="{{ ogDesc | default(description) }}">
+  <meta name="twitter:image" content="{{ site.ogImage }}">
+  <meta name="twitter:image:alt" content="{{ site.name }} – κουφώματα PVC">
   <meta name="author" content="pvcoutlet">
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
+  <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
+  <link rel="preconnect" href="https://www.google.com" crossorigin>
   <link rel="preload" href="/style.css" as="style">
   <link rel="preload" href="/img/pvcoutlet-logo.webp" as="image">
   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
@@ -28,12 +41,23 @@
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "LocalBusiness",
+        "@type": "Organization",
+        "@id": "{{ site.url }}/#organization",
         "name": "{{ site.name }}",
-        "image": "{{ site.url }}/img/pvcoutlet-logo.webp",
+        "url": "{{ site.url }}/",
+        "logo": { "@type": "ImageObject", "url": "{{ site.logo | default(site.url + '/img/pvcoutlet-logo.webp') }}" },
+        "sameAs": {{ site.sameAs | dump | safe }}
+      },
+      {
+        "@type": "LocalBusiness",
         "@id": "{{ site.url }}/",
+        "name": "{{ site.name }}",
+        "image": ["{{ site.url }}/img/pvcoutlet-logo.webp", "{{ site.ogImage }}"],
+        "logo": "{{ site.logo | default(site.url + '/img/pvcoutlet-logo.webp') }}",
         "url": "{{ site.url }}/",
         "telephone": "{{ site.phone }}",
+        "priceRange": "{{ site.priceRange | default('€€') }}",
+        "areaServed": { "@type": "Country", "name": "Ελλάδα" },
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "{{ site.address }}",
@@ -43,7 +67,17 @@
         },
         "geo": { "@type": "GeoCoordinates", "latitude": {{ site.geo.lat }}, "longitude": {{ site.geo.lng }} },
         "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "17:00" },
-        "sameAs": {{ site.sameAs | dump | safe }}
+        "sameAs": {{ site.sameAs | dump | safe }},
+        "parentOrganization": { "@id": "{{ site.url }}/#organization" }
+        {% if site.aggregateRating and site.aggregateRating.ratingValue %},
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "{{ site.aggregateRating.ratingValue }}",
+          "bestRating": "{{ site.aggregateRating.bestRating | default('5') }}",
+          "worstRating": "{{ site.aggregateRating.worstRating | default('1') }}",
+          "reviewCount": "{{ site.aggregateRating.reviewCount }}"
+        }
+        {% endif %}
       }
       {% if faq and faq.length %}
       ,{
@@ -59,11 +93,75 @@
   }
   </script>
 {% endif %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": {{ title | default(site.name) | dump | safe }},
+    "description": {{ description | dump | safe }},
+    "url": "{{ canonical | default(site.url + page.url) }}",
+    "dateModified": "{{ dateModified | default(page.date | dateFormat) | default('2025-02-07') }}",
+    "primaryImageOfPage": { "@type": "ImageObject", "url": "{{ site.ogImage }}" },
+    "speakable": {
+      "@type": "SpeakableSpecification",
+      "cssSelector": ["#main", "h1", "h2", "h3", ".intro", ".basii", ".titlos2", ".pvch2"]
+    }
+  }
+  </script>
+{% if breadcrumbs and breadcrumbs.length %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {% for b in breadcrumbs %}
+      { "@type": "ListItem", "position": {{ loop.index }}, "name": {{ b.name | dump | safe }}, "item": "{{ site.url }}{{ b.url }}" }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    ]
+  }
+  </script>
+{% endif %}
+{% if offerPrice and productName %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": {{ productName | dump | safe }},
+    "description": {{ description | dump | safe }},
+    "brand": { "@type": "Brand", "name": "{{ site.name }}" },
+    "offers": {
+      "@type": "Offer",
+      "url": "{{ canonical | default(site.url + page.url) }}",
+      "priceCurrency": "EUR",
+      "price": "{{ offerPrice }}",
+      "priceValidUntil": "{{ offerPriceValidUntil | default('2026-12-31') }}",
+      "availability": "https://schema.org/InStock",
+      "seller": { "@id": "{{ site.url }}/" }
+    }
+  }
+  </script>
+{% endif %}
+{% if howToName and howToSteps and howToSteps.length %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": {{ howToName | dump | safe }},
+    "description": {{ howToDescription | default(description) | dump | safe }},
+    "step": [
+    {% for s in howToSteps %}
+    { "@type": "HowToStep", "position": {{ loop.index }}, "name": {{ s.name | dump | safe }}, "text": {{ s.text | dump | safe }} }{% if not loop.last %},{% endif %}
+    {% endfor %}
+    ]
+  }
+  </script>
+{% endif %}
   <script defer>
   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KFQDTF4');
   </script>
 </head>
 <body>
+  <a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFQDTF4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="header" role="banner">
     <a href="{{ site.url }}/"><img src="/img/pvcoutlet-logo.webp" alt="κουφώματα pvc {{ site.name }}" width="500" height="100" fetchpriority="high"></a>

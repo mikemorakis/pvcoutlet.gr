@@ -52,4 +52,9 @@
   <small>POWERED BY</small><br/>
   <strong style="margin:10px;"><a href="https://technopan.gr/" title="ΤΕΧΝΟΠΑΝ κουφώματα PVC">ΤΕΧΝΟΠΑΝ</a></strong>
   <p>Συνθετικά κουφώματα pvc, παράθυρα pvc, μπαλκονόπορτες pvc, ρολά και σίτες σε χαμηλές τιμές. Πανελλαδική παράδοση. Επικοινωνήστε για προσφορά.</p>
+  <nav class="internal-links" aria-label="Εσωτερικοί σύνδεσμοι">
+    {% for link in internalLinks %}
+    <a href="{{ site.url }}{{ link.url }}" title="{{ link.title }}">{{ link.label }}</a>{% if not loop.last %} · {% endif %}
+    {% endfor %}
+  </nav>
 </div>

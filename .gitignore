@@ -1,5 +1,6 @@
 node_modules/
 _site/
+img/opt/
 .env
 *.log
 .DS_Store

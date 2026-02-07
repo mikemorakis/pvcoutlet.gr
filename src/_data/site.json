@@ -10,6 +10,9 @@
   "country": "GR",
   "geo": { "lat": 37.9622, "lng": 23.6744 },
   "ogImage": "https://pvcoutlet.gr/img/pvcoutlet_1200x630.png",
+  "logo": "https://pvcoutlet.gr/img/pvcoutlet-logo.webp",
+  "priceRange": "€€",
+  "areaServed": "GR",
   "sameAs": [
     "https://www.facebook.com/pvcoutlet.gr",
     "https://www.instagram.com/pvcoutlet.gr"

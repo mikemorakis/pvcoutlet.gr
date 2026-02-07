@@ -10,6 +10,7 @@
   "author": "pvcoutlet",
   "license": "UNLICENSED",
   "devDependencies": {
-    "@11ty/eleventy": "^3.0.0"
+    "@11ty/eleventy": "^3.0.0",
+    "@11ty/eleventy-img": "^4.0.0"
   }
 }

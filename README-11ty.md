@@ -100,6 +100,22 @@ After the first deploy: **Custom domains** → Add `pvcoutlet.gr` (and `www.pvco
 | Επικοινωνία | `/epikoinonia/`        |
 | 404        | `/404.html`             |
 | Sitemap    | `/sitemap.xml`          |
+| Οδηγός επιλογής κουφωμάτων | `/odigos-koufomata-pvc/` |
+
+## SEO / Schema
+
+The site outputs **WebPage**, **BreadcrumbList**, **LocalBusiness**, **Organization**, **Product/Offer** (on category pages), **FAQPage** (home), **HowTo** (guide page), and **Speakable**. To show **review stars** (AggregateRating) when you have real reviews, add to `src/_data/site.json`:
+
+```json
+"aggregateRating": {
+  "ratingValue": "4.8",
+  "reviewCount": "127",
+  "bestRating": "5",
+  "worstRating": "1"
+}
+```
+
+**dateModified** in WebPage comes from the template file’s last-modified date (or front matter `dateModified` if set).
 
 ## Switching from PHP to 11ty
 

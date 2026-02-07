@@ -8,9 +8,9 @@ eleventyExcludeFromCollections: true
 {% if not page.data.excludeFromSitemap and page.url and page.url != "/404.html" %}
   <url>
     <loc>{{ site.url }}{{ page.url }}</loc>
-    <lastmod>2025-02-07</lastmod>
+    <lastmod>{{ page.date | dateFormat }}</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>{% if page.url == "/" %}1.0{% else %}0.8{% endif %}</priority>
+    <priority>{% if page.url == "/" %}1.0{% elif page.url == "/epikoinonia/" %}0.9{% else %}0.8{% endif %}</priority>
   </url>
 {% endif %}
 {% endfor %}
