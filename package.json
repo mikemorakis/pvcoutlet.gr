@@ -1,0 +1,15 @@
+{
+  "name": "pvcoutlet.gr",
+  "version": "2.0.0",
+  "description": "Κουφώματα PVC PVCOUTLET – 11ty + Cloudflare Pages",
+  "scripts": {
+    "build": "eleventy",
+    "serve": "eleventy --serve",
+    "dev": "eleventy --serve"
+  },
+  "author": "pvcoutlet",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "@11ty/eleventy": "^3.0.0"
+  }
+}

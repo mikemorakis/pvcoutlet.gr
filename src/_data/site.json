@@ -1,0 +1,17 @@
+{
+  "name": "PVCOUTLET®",
+  "url": "https://pvcoutlet.gr",
+  "lang": "el",
+  "phone": "+302117259236",
+  "phoneDisplay": "211 7259236",
+  "address": "Χρυσοστόμου Σμύρνης 78Α",
+  "locality": "Άγιος Ιωάννης Ρέντης",
+  "postalCode": "185 41",
+  "country": "GR",
+  "geo": { "lat": 37.9622, "lng": 23.6744 },
+  "ogImage": "https://pvcoutlet.gr/img/pvcoutlet_1200x630.png",
+  "sameAs": [
+    "https://www.facebook.com/pvcoutlet.gr",
+    "https://www.instagram.com/pvcoutlet.gr"
+  ]
+}

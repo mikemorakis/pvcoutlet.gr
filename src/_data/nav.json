@@ -1,0 +1,8 @@
+[
+  { "title": "PVC ΚΟΥΦΩΜΑΤΑ", "url": "/", "aria": "pvc κουφώματα" },
+  { "title": "ΠΑΡΑΘΥΡΑ PVC", "url": "/pvc-parathira/", "aria": "pvc παράθυρα" },
+  { "title": "ΜΠΑΛΚΟΝΟΠΟΡΤΕΣ PVC", "url": "/pvc-balkonoportes/", "aria": "pvc μπαλκονόπορτες" },
+  { "title": "ΣΙΤΕΣ", "url": "/sites/", "aria": "σίτες" },
+  { "title": "ΡΟΛΑ PVC", "url": "/pvc-rola/", "aria": "pvc ρολά" },
+  { "title": "ΕΠΙΚΟΙΝΩΝΙΑ", "url": "/epikoinonia/", "aria": "επικοινωνία", "btn": true }
+]

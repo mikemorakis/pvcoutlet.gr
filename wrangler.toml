@@ -1,0 +1,8 @@
+# Cloudflare Pages – connect repo and set:
+# Build command: npm run build
+# Build output directory: _site
+# Root directory: (blank)
+
+name = "pvcoutlet"
+compatibility_date = "2025-01-01"
+pages_build_output_dir = "_site"

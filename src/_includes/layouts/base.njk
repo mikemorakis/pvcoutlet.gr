@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default('el') }}" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{{ title | default(site.name) }}</title>
+  <meta name="description" content="{{ description }}">
+  <link rel="canonical" href="{{ canonical | default(site.url + page.url) }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="{{ site.name }}">
+  <meta property="og:url" content="{{ canonical | default(site.url + page.url) }}">
+  <meta property="og:title" content="{{ ogTitle | default(title) }}">
+  <meta property="og:description" content="{{ ogDesc | default(description) }}">
+  <meta property="og:image" content="{{ site.ogImage }}">
+  <meta property="og:image:url" content="{{ site.ogImage }}">
+  <meta name="author" content="pvcoutlet">
+  <link rel="preload" href="/style.css" as="style">
+  <link rel="preload" href="/img/pvcoutlet-logo.webp" as="image">
+  <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+  <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png">
+  <meta name="theme-color" content="#ffffff">
+  <link rel="stylesheet" href="/style.css">
+{% if showJsonLd %}
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "LocalBusiness",
+        "name": "{{ site.name }}",
+        "image": "{{ site.url }}/img/pvcoutlet-logo.webp",
+        "@id": "{{ site.url }}/",
+        "url": "{{ site.url }}/",
+        "telephone": "{{ site.phone }}",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "{{ site.address }}",
+          "addressLocality": "{{ site.locality }}",
+          "postalCode": "{{ site.postalCode }}",
+          "addressCountry": "{{ site.country }}"
+        },
+        "geo": { "@type": "GeoCoordinates", "latitude": {{ site.geo.lat }}, "longitude": {{ site.geo.lng }} },
+        "openingHoursSpecification": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "17:00" },
+        "sameAs": {{ site.sameAs | dump | safe }}
+      }
+      {% if faq and faq.length %}
+      ,{
+        "@type": "FAQPage",
+        "mainEntity": [
+          {% for item in faq %}
+          { "@type": "Question", "name": {{ item.q | dump | safe }}, "acceptedAnswer": { "@type": "Answer", "text": {{ item.a | dump | safe }} }}{% if not loop.last %},{% endif %}
+          {% endfor %}
+        ]
+      }
+      {% endif %}
+    ]
+  }
+  </script>
+{% endif %}
+  <script defer>
+  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KFQDTF4');
+  </script>
+</head>
+<body>
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFQDTF4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <header class="header" role="banner">
+    <a href="{{ site.url }}/"><img src="/img/pvcoutlet-logo.webp" alt="κουφώματα pvc {{ site.name }}" width="500" height="100" fetchpriority="high"></a>
+  </header>
+  {% include "nav.njk" %}
+  <main id="main" role="main">
+    {{ content | safe }}
+  </main>
+  <div class="map-container" id="map-container">
+    <div class="map-placeholder" onclick="loadMap()" role="button" tabindex="0">📍 Κάντε κλικ για χάρτη – Χρυσοστόμου Σμύρνης 78Α, Αγ. Ιωάννης Ρέντης</div>
+  </div>
+  {% include "footer.njk" %}
+  <a id="calus" href="tel:00302117259236" aria-label="Καλέστε μας">ΚΑΛΕΣΤΕ ΜΑΣ <img src="/phone.svg" alt="" width="12" height="12"></a>
+  <script>
+  function myFunction(){var x=document.getElementById("myTopnav");x.className=x.className==="topnav"?"topnav responsive":"topnav";}
+  function loadMap(){var c=document.getElementById("map-container");c.innerHTML='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d786.4857592777696!2d23.66827436690928!3d37.95511601273066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bc77dfce5fd9%3A0x1c377f52d2bd638e!2zzqfPgc-Fz4POv8-Dz4TPjM68zr_PhSDOo868z43Pgc69zrfPgiA3OCwgzpHOsy4gzpnPic6szr3Ovc63z4IgzqHOrc69z4TOt8-CIDE4NSA0MQ!5e0!3m2!1sel!2sgr!4v1612801051972!5m2!1sel!2sgr" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';}
+  </script>
+  <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-174982940-1"></script>
+  <script>
+  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-174982940-1');
+  </script>
+</body>
+</html>
