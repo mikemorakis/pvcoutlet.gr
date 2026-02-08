@@ -1,0 +1,24 @@
+---
+permalink: /feed.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="el">
+  <title>{{ site.name }} – Κουφώματα PVC</title>
+  <link href="{{ site.url }}/feed.xml" rel="self" type="application/atom+xml"/>
+  <link href="{{ site.url }}/" rel="alternate" type="text/html"/>
+  <updated>2026-02-08T12:00:00+02:00</updated>
+  <id>{{ site.url }}/</id>
+  <author><name>{{ site.name }}</name></author>
+  {% for page in collections.all | reverse %}
+  {% if page.url and page.url != "/404.html" and page.url != "/sitemap.xml" and page.url != "/feed.xml" and page.data.title %}
+  <entry>
+    <title>{{ page.data.title }}</title>
+    <link href="{{ site.url }}{{ page.url }}" rel="alternate"/>
+    <id>{{ site.url }}{{ page.url }}</id>
+    <updated>{{ page.date | dateFormat }}T12:00:00+02:00</updated>
+    <summary>{{ page.data.description | default('') }}</summary>
+  </entry>
+  {% endif %}
+  {% endfor %}
+</feed>

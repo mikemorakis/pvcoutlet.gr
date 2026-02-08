@@ -56,6 +56,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("phone.svg");
   eleventyConfig.addPassthroughCopy("google7b9bbc357455917d.html");
   eleventyConfig.addPassthroughCopy("robots.txt");
+  eleventyConfig.addPassthroughCopy("_headers");
 
   eleventyConfig.addGlobalData("base", "https://pvcoutlet.gr");
 

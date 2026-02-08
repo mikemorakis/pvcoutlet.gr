@@ -25,6 +25,7 @@
   <meta name="twitter:image" content="{{ site.ogImage }}">
   <meta name="twitter:image:alt" content="{{ site.name }} – κουφώματα PVC">
   <meta name="author" content="pvcoutlet">
+  <link rel="preload" href="/img/img1.webp" as="image" fetchpriority="high">
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://www.google.com" crossorigin>
@@ -33,6 +34,7 @@
   <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
   <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
   <link rel="apple-touch-icon" sizes="180x180" href="/img/apple-icon-180x180.png">
+  <link rel="alternate" type="application/atom+xml" href="{{ site.url }}/feed.xml" title="{{ site.name }} RSS">
   <meta name="theme-color" content="#ffffff">
   <link rel="stylesheet" href="/style.css">
 {% if showJsonLd %}
@@ -56,6 +58,14 @@
         "logo": "{{ site.logo | default(site.url + '/img/pvcoutlet-logo.webp') }}",
         "url": "{{ site.url }}/",
         "telephone": "{{ site.phone }}",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "{{ site.phone }}",
+          "contactType": "customer service",
+          "areaServed": "GR",
+          "availableLanguage": "Greek",
+          "hoursAvailable": { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:00", "closes": "17:00" }
+        },
         "priceRange": "{{ site.priceRange | default('€€') }}",
         "areaServed": { "@type": "Country", "name": "Ελλάδα" },
         "address": {
@@ -156,15 +166,15 @@
   }
   </script>
 {% endif %}
-  <script defer>
-  (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-KFQDTF4');
+  <script>
+  window.addEventListener('load',function(){var w=window,d=document,s='script',l='dataLayer',i='GTM-KFQDTF4';w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);});
   </script>
 </head>
-<body>
+<body class="{{ bodyClass | default('') }}">
   <a href="#main" class="skip-link">Μετάβαση στο κύριο περιεχόμενο</a>
   <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KFQDTF4" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <header class="header" role="banner">
-    <a href="{{ site.url }}/"><img src="/img/pvcoutlet-logo.webp" alt="κουφώματα pvc {{ site.name }}" width="500" height="100" fetchpriority="high"></a>
+    <a href="{{ site.url }}/"><img src="/img/pvcoutlet-logo.webp" alt="κουφώματα pvc {{ site.name }}" width="500" height="100" fetchpriority="high" decoding="async"></a>
   </header>
   {% include "nav.njk" %}
   <main id="main" role="main">
@@ -174,14 +184,15 @@
     <div class="map-placeholder" onclick="loadMap()" role="button" tabindex="0">📍 Κάντε κλικ για χάρτη – Χρυσοστόμου Σμύρνης 78Α, Αγ. Ιωάννης Ρέντης</div>
   </div>
   {% include "footer.njk" %}
+  <a id="back-to-top" href="#" class="back-to-top" aria-label="Επιστροφή στην κορυφή">↑ Πάνω</a>
   <a id="calus" href="tel:00302117259236" aria-label="Καλέστε μας">ΚΑΛΕΣΤΕ ΜΑΣ <img src="/phone.svg" alt="" width="12" height="12"></a>
   <script>
   function myFunction(){var x=document.getElementById("myTopnav");x.className=x.className==="topnav"?"topnav responsive":"topnav";}
   function loadMap(){var c=document.getElementById("map-container");c.innerHTML='<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d786.4857592777696!2d23.66827436690928!3d37.95511601273066!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14a1bc77dfce5fd9%3A0x1c377f52d2bd638e!2zzqfPgc-Fz4POv8-Dz4TPjM68zr_PhSDOo868z43Pgc69zrfPgiA3OCwgzpHOsy4gzpnPic6szr3Ovc63z4IgzqHOrc69z4TOt8-CIDE4NSA0MQ!5e0!3m2!1sel!2sgr!4v1612801051972!5m2!1sel!2sgr" width="100%" height="600" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>';}
+  (function(){var b=document.getElementById('back-to-top');if(b)window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400);});})();
   </script>
-  <script defer src="https://www.googletagmanager.com/gtag/js?id=UA-174982940-1"></script>
   <script>
-  window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-174982940-1');
+  window.addEventListener('load',function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=UA-174982940-1';s.async=true;document.body.appendChild(s);s.onload=function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-174982940-1');};});
   </script>
 </body>
 </html>
