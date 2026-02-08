@@ -180,13 +180,23 @@ p.titlos3, .titlos3 {
 }
 
 .topnav a.active,
-.topnav a:hover {
+.topnav a:hover,
+.topnav button.icon:hover {
   background-color: #00aeec;
   color: #f1f1f1;
 }
 
 .topnav .icon {
   display: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+  padding: 0;
+}
+.topnav button.icon {
+  padding: 14px 16px;
 }
 
 /* ==========================================================================
@@ -627,7 +637,8 @@ p.dddar {
     display: none;
   }
 
-  .topnav a.icon {
+  .topnav a.icon,
+  .topnav button.icon {
     float: right;
     display: block;
   }
@@ -636,7 +647,8 @@ p.dddar {
     position: relative;
   }
 
-  .topnav.responsive .icon {
+  .topnav.responsive a.icon,
+  .topnav.responsive button.icon {
     position: absolute;
     right: 0;
     top: 0;

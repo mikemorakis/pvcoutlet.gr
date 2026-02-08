@@ -2,5 +2,5 @@
   {% for item in nav %}
   <a href="{{ site.url }}{{ item.url }}" title="{{ item.aria }}" class="{% if item.btn %}btn {% endif %}{% if page.url == item.url or (item.url == '/' and page.url == '/') %}active{% endif %}">{{ item.title }}</a>
   {% endfor %}
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()" aria-label="Άνοιγμα μενού"><span>MENU</span></a>
+  <button type="button" class="icon" onclick="myFunction()" aria-label="Άνοιγμα μενού" aria-expanded="false"><span>MENU</span></button>
 </nav>
