@@ -1,6 +1,6 @@
 const Image = require("@11ty/eleventy-img");
 
-async function pictureShortcode(src, alt, width, height, className = "", loading = "lazy") {
+async function pictureShortcode(src, alt, width, height, className = "", loading = "lazy", fetchPriority = "") {
   if (!src || src.startsWith("/img/")) src = src.replace(/^\//, "");
   const path = src.startsWith("img/") ? src : `img/${src}`;
   const ext = path.split(".").pop().toLowerCase();
@@ -8,9 +8,16 @@ async function pictureShortcode(src, alt, width, height, className = "", loading
   if (isSvg) {
     return `<img src="/${path}" alt="${alt || ""}" width="${width || ""}" height="${height || ""}" loading="${loading}" class="${className}">`;
   }
-  const widths = width ? [Math.min(400, width), width, width * 2].filter((w, i, a) => a.indexOf(w) === i) : [400, 800];
+  const maxW = 1920;
+  const widths = width ? [Math.min(400, width), width, Math.min(width * 2, maxW)].filter((w, i, a) => a.indexOf(w) === i) : [400, 800];
   const formats = ["avif", "webp", "jpeg"];
   if (ext === "png") formats[2] = "png";
+  const sharpOpts = { failOnError: false };
+  if (fetchPriority === "high") {
+    sharpOpts.webp = { quality: 75 };
+    sharpOpts.avif = { quality: 60 };
+    sharpOpts.jpeg = { quality: 75 };
+  }
   let metadata;
   try {
     metadata = await Image(path, {
@@ -18,7 +25,7 @@ async function pictureShortcode(src, alt, width, height, className = "", loading
       formats,
       outputDir: "_site/img/opt",
       urlPath: "/img/opt/",
-      sharpOptions: { failOnError: false },
+      sharpOptions: sharpOpts,
     });
   } catch (e) {
     return `<img src="/${path}" alt="${alt || ""}" width="${width || 400}" height="${height || 300}" loading="${loading}" class="${className}">`;
@@ -28,13 +35,13 @@ async function pictureShortcode(src, alt, width, height, className = "", loading
   const avif = metadata.avif && metadata.avif.length ? metadata.avif : null;
   const webp = metadata.webp && metadata.webp.length ? metadata.webp : null;
   const fallback = metadata.jpeg && metadata.jpeg.length ? metadata.jpeg : metadata.png || metadata.webp || metadata.avif;
-  const fallbackFormat = metadata.jpeg && metadata.jpeg.length ? "jpeg" : metadata.png && metadata.png.length ? "png" : "webp";
   const fallbackSrc = fallback && fallback[0] ? fallback[0].url : `/${path}`;
   const srcset = (arr) => (arr || []).map((i) => `${i.url} ${i.width}w`).join(", ");
+  const fp = fetchPriority === "high" || fetchPriority === "low" ? ` fetchpriority="${fetchPriority}"` : "";
   let html = "<picture>";
   if (avif && avif.length) html += `<source type="image/avif" srcset="${srcset(avif)}" sizes="(max-width: 600px) 100vw, ${w}px">`;
   if (webp && webp.length) html += `<source type="image/webp" srcset="${srcset(webp)}" sizes="(max-width: 600px) 100vw, ${w}px">`;
-  html += `<img src="${fallbackSrc}" alt="${(alt || "").replace(/"/g, "&quot;")}" width="${w}" height="${h}" loading="${loading}" decoding="async" class="${className}">`;
+  html += `<img src="${fallbackSrc}" alt="${(alt || "").replace(/"/g, "&quot;")}" width="${w}" height="${h}" loading="${loading}" decoding="async" class="${className}"${fp}>`;
   html += "</picture>";
   return html;
 }

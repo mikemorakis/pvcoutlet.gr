@@ -25,7 +25,6 @@
   <meta name="twitter:image" content="{{ site.ogImage }}">
   <meta name="twitter:image:alt" content="{{ site.name }} – κουφώματα PVC">
   <meta name="author" content="pvcoutlet">
-  <link rel="preload" href="/img/img1.webp" as="image" fetchpriority="high">
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="preconnect" href="https://www.google-analytics.com" crossorigin>
   <link rel="preconnect" href="https://www.google.com" crossorigin>
@@ -167,7 +166,7 @@
   </script>
 {% endif %}
   <script>
-  window.addEventListener('load',function(){var w=window,d=document,s='script',l='dataLayer',i='GTM-KFQDTF4';w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);});
+  window.addEventListener('load',function(){setTimeout(function(){var w=window,d=document,s='script',l='dataLayer',i='GTM-KFQDTF4';w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i;f.parentNode.insertBefore(j,f);},4000);});
   </script>
 </head>
 <body class="{{ bodyClass | default('') }}">
@@ -192,7 +191,7 @@
   (function(){var b=document.getElementById('back-to-top');if(b)window.addEventListener('scroll',function(){b.classList.toggle('visible',window.scrollY>400);});})();
   </script>
   <script>
-  window.addEventListener('load',function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=UA-174982940-1';s.async=true;document.body.appendChild(s);s.onload=function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-174982940-1');};});
+  window.addEventListener('load',function(){setTimeout(function(){var s=document.createElement('script');s.src='https://www.googletagmanager.com/gtag/js?id=UA-174982940-1';s.async=true;document.body.appendChild(s);s.onload=function(){window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','UA-174982940-1');};},4000);});
   </script>
 </body>
 </html>
