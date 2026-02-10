@@ -2,5 +2,8 @@
   {% for item in nav %}
   <a href="{{ site.url }}{{ item.url }}" title="{{ item.aria }}" class="{% if item.btn %}btn {% endif %}{% if page.url == item.url or (item.url == '/' and page.url == '/') %}active{% endif %}">{{ item.title }}</a>
   {% endfor %}
-  <button type="button" class="icon" onclick="myFunction()" aria-label="Άνοιγμα μενού" aria-expanded="false"><span>MENU</span></button>
+  <button type="button" class="icon" onclick="toggleNav(this)" aria-label="Άνοιγμα μενού" aria-expanded="false" aria-controls="myTopnav">
+    <span class="hamburger" aria-hidden="true"></span>
+    <span class="visually-hidden">Άνοιγμα μενού</span>
+  </button>
 </nav>
